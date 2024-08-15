@@ -36,4 +36,5 @@ public class Contato implements Serializable {
     public void setMesAniversario(int mesAniversario) {
         this.mesAniversario = mesAniversario;
     }
+
 }
