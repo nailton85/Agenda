@@ -8,17 +8,32 @@ public class AgendaAyla implements Agenda{
 
     @Override
     public boolean cadastraContato(String nome, int dia, int mes) {
-        return false;
+        if(this.contatos.containsKey(nome)){
+            return false;
+        }
+        Contato novoContato = new Contato(nome, dia, mes);
+        this.contatos.put(nome, novoContato);
+        return true;
     }
 
     @Override
     public Collection<Contato> pesquisaAniversariantes(int dia, int mes) {
-        return null;
-    }
+        Collection<Contato> contatosPeloDia = new ArrayList<>();
+        for(Contato c: this.contatos.values()){
+            if (c.getDiaAniversario()==dia && c.getMesAniversario()==mes){
+                contatosDoDia.add(c);
+            }
+        }
+        return contatosPeloDia;    }
 
     @Override
-    public boolean removeContato(String nome) {
-        return false;
+    public boolean removeContato(String nome) throw ContatoInexistenteException{
+        if (this.contatos.containsKey(nome)){
+            this.contatos.remove(nome);
+            return  true;
+        } else {
+            throw new ContatoInexistenteException("Não existe contato com o nome "+nome);
+        }
     }
 
     @Override
